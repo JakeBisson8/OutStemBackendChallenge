@@ -23,7 +23,9 @@ router.post("/create", async (req, res) => {
         const newRecipe = new Recipe({
             author: req.body.author,
             content: req.body.content,
-            category: req.body.category
+            category: req.body.category,
+            isPremium: req.body.isPremium,
+            isPrivate: req.body.isPrivate
         });
 
         //save the new recipe model to the database
@@ -47,7 +49,7 @@ router.post("/edit", async (req, res) => {
         }
 
         //update the recipe
-        await Recipe.updateOne({_id: req.body.id, author: req.body.author}, {content: req.body.content, category: req.body.category, isPremium: req.body.isPremium, isPrivate: req.body.isPrivate});
+        await Recipe.updateOne({_id: req.body.id, author: req.body.author}, {content: req.body.content, category: req.body.category, isPremium: req.body.isPremium, isPrivate: req.body.isPrivate, datelastupdated: Date.now()});
 
         //return status 200 when update is complete
         //no need to check if a row was modified, if it was not modified still consider it as updated
